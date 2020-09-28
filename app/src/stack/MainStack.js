@@ -11,10 +11,14 @@ export default () => (
     <Stack.Navigator
         initialRouteName = "Preload"
         screenOptions = {{
-            headerShown: false
+            headerShown: false,
+            animationEnabled: false
         }}
+        
     >
-        <Stack.Screen name = "Preload" component = {Preload} />
+        <Stack.Screen name = "Preload" component = {Preload}
+        
+        />
         <Stack.Screen name = "Menu" component = {Menu} />
         <Stack.Screen name = "NewGame" component = {NewGame} />
     </Stack.Navigator>

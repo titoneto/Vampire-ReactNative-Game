@@ -1,12 +1,18 @@
 import React from 'react';
-import {Container} from './style';
-import {Text} from 'react-native';
+import {
+
+
+} from './style';
+
+import FangsContainer from '../../components/FangsContainer';
 
 export default () => {
 
     return (
-        <Container>
+       <FangsContainer>
+           
 
-        </Container>
+       </FangsContainer>
+            
     );
 }

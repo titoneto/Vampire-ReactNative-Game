@@ -2,18 +2,11 @@ import React, {useEffect, useContext}from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
-import {
-    Container,
-    LogoHeaderArea,
-    LogoFooterArea,
-    LoadingIcon,
-    LogoImage
-} from './style';
+import { LoadingIcon } from './style';
 
 import { PlayersContext } from '../../contexts/PlayersContext';
 
-import FangsUp from  '../../assets/FangsUp.png';
-import FangsDown from  '../../assets/FangsDown.png';
+import FangsContainer from '../../components/FangsContainer';
 
 export default () => {
 
@@ -34,19 +27,8 @@ export default () => {
     },[]);
 
     return (
-        <Container>
-            <LogoHeaderArea>
-                <LogoImage source = {FangsUp} />
-            </LogoHeaderArea>
-
+        <FangsContainer>
             <LoadingIcon size = 'large' color = '#FFFFFF'/>
-
-            <LogoFooterArea>
-                <LogoImage source = {FangsDown} />
-            </LogoFooterArea>
-
-          
-            
-        </Container>
+        </FangsContainer>             
     );
 }
