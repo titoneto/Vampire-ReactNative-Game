@@ -128,6 +128,30 @@ export default ({show, setShow}) => {
         
     }
 
+    const textSize = (t) => {
+        if(t.length <= 10){
+            setPlayerName(t);
+        } else {
+            alert("Número máximo de caracteres");
+        }
+    }
+    
+    const finishCLick = () => {
+        for(let i = 0; i < iconSelected.length; i++){
+            if(iconSelected[i] && playerName != ""){
+                context.dispatch({
+                    type: 'addPlayer',
+                    payload:{
+                        name: playerName,
+                        icon: playersIcons[i].name
+                    }
+                });
+                setShow(false);
+            }
+        }
+        
+    }
+
     return(
         <Modal
             transparent ={true}

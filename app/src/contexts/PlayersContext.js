@@ -30,7 +30,6 @@ const PlayersReducer = (state, action) => {
             return{...state, players: state.player.map(item => item.name != action.payload.name)};
         break;
 
-
         case 'storagedPlayers':          
             return{...state, players: action.payload.players};     
         break;

@@ -24,7 +24,6 @@ export default () => {
 
     useEffect(()=>{
         const storageCheck = async()=>{
-
             const storagePlayers = await AsyncStorage.getItem('Players');
             const storageProfessions = await AsyncStorage.getItem('Professions');
             const storagePersonalities = await AsyncStorage.getItem('Personalities');
@@ -41,6 +40,7 @@ export default () => {
                     }
                 }) 
             }
+
 
             if(professions != null) {
                 gameContext({

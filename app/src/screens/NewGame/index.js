@@ -160,10 +160,6 @@ export default () => {
     const confirmButtonPress = () =>{
         FangsUpRef.current.fadeOutUp();
         FangsDownRef.current .fadeOutDown();
-
-        storePlayers();
-        storeProfessions();
-        storePersonalities();
     }
 
     return (
