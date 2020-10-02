@@ -24,14 +24,38 @@ export default () => {
 
     useEffect(()=>{
         const storageCheck = async()=>{
+
             const storagePlayers = await AsyncStorage.getItem('Players');
+            const storageProfessions = await AsyncStorage.getItem('Professions');
+            const storagePersonalities = await AsyncStorage.getItem('Personalities');
+
             const players = JSON.parse(storagePlayers);
+            const professions = JSON.parse(storageProfessions);
+            const personalities = JSON.parse(storagePersonalities);
             
             if(players != null) {
                 gameContext({
-                    type: 'asyncToContext',
+                    type: 'storagedPlayers',
                     payload: {
                         players: players
+                    }
+                }) 
+            }
+
+            if(professions != null) {
+                gameContext({
+                    type: 'storagedProfessions',
+                    payload: {
+                        professions: professions
+                    }
+                }) 
+            }
+
+            if(personalities != null) {
+                gameContext({
+                    type: 'storagedPersonalities',
+                    payload: {
+                        personalities: personalities
                     }
                 }) 
             }

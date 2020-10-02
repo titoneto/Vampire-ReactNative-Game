@@ -30,8 +30,19 @@ const PlayersReducer = (state, action) => {
             return{...state, players: state.player.map(item => item.name != action.payload.name)};
         break;
 
-        case 'asyncToContext':          
-            return{...state, players:action.payload.players};     
+
+        case 'storagedPlayers':          
+            return{...state, players: action.payload.players};     
+        break;
+        case 'storagedProfessions':
+            return{...state, professions: state.professions.map((item,key)=>(
+                  {...item, enable: action.payload.professions[key].enable}
+            ))};     
+        break;
+        case 'storagedPersonalities':
+            return{...state, personalities: state.personalities.map((item,key)=>(
+                  {...item, enable: action.payload.personalities[key].enable}
+        ))};      
         break;
     
         default:

@@ -1,5 +1,6 @@
 import React, { useState,useContext, useEffect } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
+import {useNavigation} from '@react-navigation/native';
 
 import {
     PreGameArea,
@@ -33,6 +34,7 @@ import UpIcon from '../../assets/svg/014-up-chevron.svg';
 
 export default () => {
 
+    const navigation = useNavigation();
     const playersContext = useContext(PlayersContext);
 
     const [personalitiesSee, setPersonalitiesSee] = useState(false);
@@ -56,13 +58,21 @@ export default () => {
 
     },[]);
 
+    const storePlayers = async () =>{
+        const jsonPlayers = JSON.stringify(playersList);
+        await AsyncStorage.setItem('Players', jsonPlayers);    
+    }
+    const storeProfessions = async () =>{
+        const jsonProfessions = JSON.stringify(professionsList);
+        await AsyncStorage.setItem('Professions', jsonProfessions);    
+    }
+    const storePersonalities = async () =>{
+        const jsonPersonalities = JSON.stringify(personalitiesList);
+        await AsyncStorage.setItem('Personalities', jsonPersonalities);    
+    }
+
     useEffect(()=>{
-        const storePlayers = async () =>{
-            const jsonPLayers = JSON.stringify(playersContext.state.players);
-            await AsyncStorage.setItem('Players', jsonPLayers);    
-        }
         storePlayers();
-        
         setPlayerList(playersContext.state.players);
     },[playersContext.state.players]);
 
@@ -110,8 +120,10 @@ export default () => {
             } else {
                 return data;
             }
-        }));   
+        }));
+        storePlayers();   
     }
+
     const playerLongPress = (key) =>{
 
     }
@@ -130,6 +142,7 @@ export default () => {
                 return data;
             }
         }));
+        storeProfessions();
     }
     const personalityShortPress = (key) => {
         setPersonalitiesList(personalitiesList.map((data, k) =>{
@@ -139,6 +152,7 @@ export default () => {
                 return data;
             }
         }));
+        storePersonalities();
     }
     const descriptionPress = (item) =>{
         alert(item.description);
@@ -146,6 +160,10 @@ export default () => {
     const confirmButtonPress = () =>{
         FangsUpRef.current.fadeOutUp();
         FangsDownRef.current .fadeOutDown();
+
+        storePlayers();
+        storeProfessions();
+        storePersonalities();
     }
 
     return (

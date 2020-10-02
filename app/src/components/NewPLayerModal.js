@@ -93,6 +93,8 @@ export default ({show, setShow}) => {
 
     const handleCloseButton = () =>{
         setShow(false);
+        setIconSelected(iconSelected.map(()=>(false)));
+        setPlayerName("");
     }
 
     const avatarClick = (key) => {
@@ -119,6 +121,8 @@ export default ({show, setShow}) => {
                     }
                 });
                 setShow(false);
+                setIconSelected(iconSelected.map(()=>(false)));
+                setPlayerName("");
             }
         }
         
