@@ -12,6 +12,16 @@ import PoliticoIcon from '../assets/politics.svg';
 import CasalIcon from '../assets/love.svg';
 import ImuneIcon from '../assets/security.svg';
 
+import MaleIcon from '../assets/user.svg';
+import DinoIcon from '../assets/tyrannosaurus-rex.svg';
+import FemaleIcon from '../assets/woman-avatar.svg'
+
+export const playersIcons = [
+    {icon: DinoIcon, name: "Dino"},
+    {icon: MaleIcon, name: "Male"},
+    {icon: FemaleIcon, name: "Female"}
+]
+
 export const professions = [
     {name: "Vampiro",             icon: VampiroIcon,     type: "Enemy",      enable: true,
     description: "Vampiro "
