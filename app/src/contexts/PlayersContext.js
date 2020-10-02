@@ -1,10 +1,29 @@
 import React, {createContext, useReducer} from 'react';
 
+import { professions, personalities } from './Initialstate';
+
+import MaleIcon from '../assets/user.svg';
+import DinoIcon from '../assets/tyrannosaurus-rex.svg';
+import FemaleIcon from '../assets/woman-avatar.svg';
+
 export const PlayersContext = createContext();
 
 
 const initialState = {
-    players: [],
+    players: [
+        {name: "Tito", icon: MaleIcon,       enable: true},
+        {name: "Thays", icon: DinoIcon,      enable: true},
+        {name: "Tito2", icon: DinoIcon,      enable: true},
+        {name: "Thays2", icon: FemaleIcon,   enable: true},
+        {name: "Tito", icon: MaleIcon,       enable: true},
+        {name: "Thays", icon: FemaleIcon,    enable: true},
+        {name: "Tito2", icon: DinoIcon,      enable: true},
+     
+    ],
+
+    professions: professions ,
+
+    personalities: personalities,
 }
 
 const PlayersReducer = (state, action) => {
@@ -12,6 +31,7 @@ const PlayersReducer = (state, action) => {
         case 'addPlayer':
             return{...state, players: state.players.concat({
                 name: action.payload.name,
+                icon: action.payload.icon,
                 allyDefeats: 0,
                 allyVictories: 0,
                 enemyDefeats: 0,

@@ -6,12 +6,21 @@ import { LoadingIcon } from './style';
 
 import { PlayersContext } from '../../contexts/PlayersContext';
 
-import FangsContainer from '../../components/FangsContainer';
+import FangsContainer, {FangsUpRef, FangsDownRef} from '../../components/FangsContainer';
 
 export default () => {
 
     const gameContext = useContext(PlayersContext).dispatch;
     const navigation = useNavigation();
+
+    //Animation Mount
+    useEffect(()=>{
+        FangsUpRef.current.fadeInDown();
+        FangsDownRef.current.fadeInUp();
+
+        return FangsUpRef.current.fadeInDown() && FangsDownRef.current.fadeInUp();
+    },[]);
+
 
     useEffect( async ()=>{
         const storagePlayers = await AsyncStorage.getItem('Players');
@@ -24,6 +33,8 @@ export default () => {
             })
         }
         navigation.navigate('Menu');
+
+        
     },[]);
 
     return (

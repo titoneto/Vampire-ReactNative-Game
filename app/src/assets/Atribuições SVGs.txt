@@ -11,6 +11,10 @@ user - Freepik
 love - Freepik
 god - Freepik
 security - Freepik
+vampire-teeth - Freepik
+vampire-servant - Freepik - vampire.svg
+woman-avatar - Freepik
+tyrannosaurus-rex - Smashicons
 
 politics - wanicon
 

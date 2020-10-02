@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {
     GameButton,
@@ -7,22 +7,31 @@ import {
     HistoricButtonText,
     } from './style';
 
-import FangsContainer from '../../components/FangsContainer';
+import FangsContainer, {FangsUpRef, FangsDownRef} from '../../components/FangsContainer';
 
 export default () => {
 
     const navigation = useNavigation();
 
+    useEffect(()=>{
+        FangsUpRef.current.fadeInDown();
+        FangsDownRef.current.fadeInUp();
+    },[]);
+
+    const NewGameCLick = () => {
+        navigation.navigate('NewGame');
+    }
+
     return (
      <FangsContainer>
          <GameButton>
-             <GameButtonText onPress = {() => navigation.navigate('NewGame')}>
+             <GameButtonText onPress = {NewGameCLick}>
                 Novo Jogo
              </GameButtonText>
          </GameButton>
 
-         <HistoricButton>
-             <HistoricButtonText>
+         <HistoricButton >
+             <HistoricButtonText >
                 Jogadores
              </HistoricButtonText>
          </HistoricButton>

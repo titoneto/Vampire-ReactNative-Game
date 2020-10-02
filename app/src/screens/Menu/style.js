@@ -26,7 +26,7 @@ export const HistoricButton = styled.TouchableOpacity`
     border-radius: 8px;
     padding: 5px 5px;
 
-    background-color: rgba(227,227,227,0.65);
+    background-color: rgba(227,227,227, 0.7);
 `;
 
 
