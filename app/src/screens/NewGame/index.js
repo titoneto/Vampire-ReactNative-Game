@@ -1,4 +1,6 @@
 import React, { useState,useContext, useEffect } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import {
     PreGameArea,
     PreGameHeader,
@@ -19,6 +21,7 @@ import {
 } from './style';
 
 import { PlayersContext } from '../../contexts/PlayersContext';
+import { playersIcons } from '../../components/CharactersAndIcons';
 
 import FangsContainer, {FangsUpRef, FangsDownRef} from '../../components/FangsContainer';
 import NewPlayerModal from '../../components/NewPLayerModal';
@@ -26,6 +29,7 @@ import NewPlayerModal from '../../components/NewPLayerModal';
 import AddIcon from '../../assets/add.svg';
 import DownIcon from '../../assets/svg/013-down-chevron.svg';
 import UpIcon from '../../assets/svg/014-up-chevron.svg';
+
 
 export default () => {
 
@@ -49,8 +53,18 @@ export default () => {
         //animation
         FangsUpRef.current.fadeInDown();
         FangsDownRef.current.fadeInUp();
+
     },[]);
 
+    useEffect(()=>{
+        const storePlayers = async () =>{
+            const jsonPLayers = JSON.stringify(playersContext.state.players);
+            await AsyncStorage.setItem('Players', jsonPLayers);    
+        }
+        storePlayers();
+        
+        setPlayerList(playersContext.state.players);
+    },[playersContext.state.players]);
 
 
 
@@ -179,47 +193,59 @@ export default () => {
                     
                     {playersSee &&  
                         <Scroll horizontal>
-                            <ScrollVerticalArea>
-                                <ScrollHorizontalArea>
-                                    {playersList.map((item,key) =>{
-                                        if(key % 2 == 0){
-                                            return (
-                                                <ScrollButtom key = {key}
-                                                    onPress = {() => playerShortPress(key)}
-                                                    onLongPress = {playerLongPress(key)}
-                                                    color = {item.enable ? "#000000" : "#E6E6E6"}
-                                                >
-                                                    <item.icon fill = {item.enable ? "#900000" : "#000000"}
-                                                    width = "58" height = "58"/>
+                                <ScrollVerticalArea>
+                                    <ScrollHorizontalArea>
+                                        {playersList.map((item,key) =>{
+                                            if(key % 2 == 0){
+                                                return (
+                                                    <ScrollButtom key = {key}
+                                                        onPress = {() => playerShortPress(key)}
+                                                        onLongPress = {playerLongPress(key)}
+                                                        color = {item.enable ? "#000000" : "#E6E6E6"}
+                                                    >
+                                                        {playersIcons.map((iconItem, index) =>{
+                                                            if(iconItem.name == item.icon){
+                                                                return(
+                                                                    <iconItem.icon fill = {item.enable ? "#900000" : "#000000"}
+                                                                    width = "58" height = "58"/>
+                                                                )
+                                                            }
+                                                        })}
 
-                                                    <ScrollButtomName color = {item.enable ? "#E6E6E6" : "#000000" }
-                                                    >{item.name}</ScrollButtomName>
-                                                </ScrollButtom>
-                                            );
-                                        }           
-                                    })}                                      
-                                </ScrollHorizontalArea>
+                                                        <ScrollButtomName color = {item.enable ? "#E6E6E6" : "#000000" }
+                                                        >{item.name}</ScrollButtomName>
+                                                    </ScrollButtom>
+                                                );
+                                            }           
+                                        })}                                      
+                                    </ScrollHorizontalArea>
 
-                                <ScrollHorizontalArea>
-                                    {playersList.map((item,key) =>{
-                                        if(key % 2 == 1){
-                                            return (
-                                                <ScrollButtom key = {key}
-                                                    onPress = {() => playerShortPress(key)}
-                                                    onLongPress = {() => changePress(key)}
-                                                    color = {item.enable ? "#000000" : "#E6E6E6"}
-                                                >
-                                                    <item.icon fill = {item.enable ? "#900000" : "#000000"}
-                                                    width = "58" height = "58"/>
+                                    <ScrollHorizontalArea>
+                                        {playersList.map((item,key) =>{
+                                            if(key % 2 == 1){
+                                                return (
+                                                    <ScrollButtom key = {key}
+                                                        onPress = {() => playerShortPress(key)}
+                                                        onLongPress = {() => changePress(key)}
+                                                        color = {item.enable ? "#000000" : "#E6E6E6"}
+                                                    >
+                                                        {playersIcons.map((iconItem, index) =>{
+                                                            if(iconItem.name == item.icon){
+                                                                return(
+                                                                    <iconItem.icon fill = {item.enable ? "#900000" : "#000000"}
+                                                                    width = "58" height = "58"/>
+                                                                )
+                                                            }
+                                                        })}
 
-                                                    <ScrollButtomName color = {item.enable ? "#E6E6E6" : "#000000" }
-                                                    >{item.name}</ScrollButtomName>
-                                                </ScrollButtom>
-                                            );
-                                        }           
-                                    })}                                      
-                                </ScrollHorizontalArea>
-                            </ScrollVerticalArea>
+                                                        <ScrollButtomName color = {item.enable ? "#E6E6E6" : "#000000" }
+                                                        >{item.name}</ScrollButtomName>
+                                                    </ScrollButtom>
+                                                );
+                                            }           
+                                        })}                                      
+                                    </ScrollHorizontalArea>
+                                </ScrollVerticalArea>
 
                             <AddButtonArea>
                                     <ScrollButtom
@@ -237,7 +263,7 @@ export default () => {
                         <Scroll horizontal>
                             <ScrollVerticalArea>
                                 <ScrollHorizontalArea>
-                                    {professionsList.map((item,key) =>{
+                                    {professionsList.length > 0 && professionsList.map((item,key) =>{
                                         if(key % 2 == 0){
                                             return (
                                                 <ScrollButtom key = {key}
@@ -259,7 +285,7 @@ export default () => {
                                 </ScrollHorizontalArea>
 
                                 <ScrollHorizontalArea>
-                                    {professionsList.map((item,key) =>{
+                                    {professionsList.length > 0 && professionsList.map((item,key) =>{
                                         if(key % 2 == 1){
                                             return (
                                                 <ScrollButtom key = {key}
@@ -287,7 +313,7 @@ export default () => {
                         <Scroll horizontal>
                             <ScrollVerticalArea>
                                 <ScrollHorizontalArea>
-                                    {personalitiesList.map((item,key) =>{
+                                    {personalitiesList.length > 0 && personalitiesList.map((item,key) =>{
                                         if(key % 2 == 0){
                                             return (
                                                 <ScrollButtom key = {key}
@@ -309,7 +335,7 @@ export default () => {
                                 </ScrollHorizontalArea>
 
                                 <ScrollHorizontalArea>
-                                    {personalitiesList.map((item,key) =>{
+                                    {personalitiesList.length > 0 && personalitiesList.map((item,key) =>{
                                         if(key % 2 == 1){
                                             return (
                                                 <ScrollButtom key = {key}
@@ -340,8 +366,6 @@ export default () => {
             <NewPlayerModal 
                 show = {newPlayerModalShow}
                 setShow = {setNewPlayerModalShow}
-                players = {playersList.filter(item => item.enable == true)}
-                setPlayers = {setPlayerList}
             />     
        </FangsContainer>
     );

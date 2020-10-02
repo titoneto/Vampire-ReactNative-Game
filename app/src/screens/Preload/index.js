@@ -18,22 +18,26 @@ export default () => {
         FangsUpRef.current.fadeInDown();
         FangsDownRef.current.fadeInUp();
 
-        return FangsUpRef.current.fadeInDown() && FangsDownRef.current.fadeInUp();
+        //return FangsUpRef.current.fadeInDown() && FangsDownRef.current.fadeInUp();
     },[]);
 
 
-    useEffect( async ()=>{
-        const storagePlayers = await AsyncStorage.getItem('Players');
-        if (storagePlayers){
-            gameContext({
-                type: 'setPlayers',
-                payload: {
-                    players: storagePlayers
-                }
-            })
+    useEffect(()=>{
+        const storageCheck = async()=>{
+            const storagePlayers = await AsyncStorage.getItem('Players');
+            const players = JSON.parse(storagePlayers);
+            
+            if(players != null) {
+                gameContext({
+                    type: 'asyncToContext',
+                    payload: {
+                        players: players
+                    }
+                }) 
+            }
+            navigation.navigate('Menu');
         }
-        navigation.navigate('Menu');
-
+        storageCheck();
         
     },[]);
 
